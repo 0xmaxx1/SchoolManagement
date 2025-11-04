@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using SchoolManagement.Core;
 using SchoolManagement.Core.MiddleWare;
+using SchoolManagement.Domain.Entities.Identity;
 using SchoolManagement.Infrastructure;
+using SchoolManagement.Infrastructure.Data;
 using SchoolManagement.Services;
 using System.Globalization;
 
@@ -40,10 +43,12 @@ namespace SchoolManagement.WebApi
             #region Add Services To DI Container
 
             builder.Services.AddControllers()
-                                      /*    .AddJsonOptions(opt =>
-                                          {
-                                              opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-                                          })*/;
+                                                                  /*    .AddJsonOptions(opt =>
+                                                                      {
+                                                                          opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                                                                      })*/;
+
+            AddTheServiceIdentityToDI(builder);
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -92,6 +97,32 @@ namespace SchoolManagement.WebApi
             app.MapControllers();
 
             app.Run();
+        }
+
+        private static void AddTheServiceIdentityToDI(WebApplicationBuilder builder)
+        {
+            builder.Services.AddIdentity<UserApplication, IdentityRole<int>>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+
+
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+              .AddDefaultTokenProviders();
         }
 
         private static void AddLocalizerInDIContianer(WebApplicationBuilder builder)

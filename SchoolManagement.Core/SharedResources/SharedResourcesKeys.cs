@@ -6,6 +6,10 @@
         public const string NotFound = "Not-Found";
         public const string Empty = "Empty";
         public const string Name = "Name";
+        public const string Exist = "Exist";
+        public const string IsNotExist = "IsNotExist";
+        public const string DepartmentId = "DepartmentId";
+
 
 
 

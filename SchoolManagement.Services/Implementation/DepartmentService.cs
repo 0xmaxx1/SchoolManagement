@@ -32,5 +32,14 @@ namespace SchoolManagement.Services.Implementation
 
 
         }
+
+        public async Task<bool> IsDepartmentIdExist(int id)
+        {
+            var isDepartmentExist = await _departmentRepository.GetTableNoTracking()
+                .Where(e => e.Id.Equals(id)).AnyAsync();
+
+            return isDepartmentExist;
+
+        }
     }
 }

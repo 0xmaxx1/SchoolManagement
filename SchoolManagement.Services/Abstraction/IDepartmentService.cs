@@ -5,7 +5,7 @@ namespace SchoolManagement.Services.Abstraction
     public interface IDepartmentService
     {
         public Task<Departments?> GetDepartmentById(int id);
-
+        public Task<bool> IsDepartmentIdExist(int id);
 
 
     }

@@ -9,16 +9,20 @@ namespace SchoolManagement.Core.Features.Student.Commands.Validations
     {
         private readonly IStudentService _studentService;
         private readonly IStringLocalizer<SharedResources.SharedResources> _localizer;
+        private readonly IDepartmentService _departmentService;
 
         //public AddStudentValidator()
         //{
 
         //}
 
-        public AddStudentValidator(IStudentService studentService, IStringLocalizer<SharedResources.SharedResources> localizer)
+        public AddStudentValidator(IStudentService studentService,
+            IStringLocalizer<SharedResources.SharedResources> localizer,
+            IDepartmentService departmentService)
         {
             this._studentService = studentService;
             this._localizer = localizer;
+            this._departmentService = departmentService;
             ApplyValidationsRules();
             ApplyCustomValidationRules();
         }
@@ -33,9 +37,14 @@ namespace SchoolManagement.Core.Features.Student.Commands.Validations
 
             RuleFor(x => x.Address)
                 //.NotEmpty().WithMessage("{PropertyName} must not be empty")
-                .NotEmpty().WithMessage("must not be empty")
+                .NotEmpty().WithMessage(_localizer[SharedResources.SharedResourcesKeys.Empty])
                 .NotNull().WithMessage("must not be null")
                 .MaximumLength(15).WithMessage("max length for {PropertyName} is 15");
+
+            RuleFor(X => X.DepartmentId)
+                .NotEmpty().WithMessage(_localizer[SharedResources.SharedResourcesKeys.Empty])
+                .NotNull().WithMessage("must not be null");
+
 
         }
 
@@ -44,6 +53,17 @@ namespace SchoolManagement.Core.Features.Student.Commands.Validations
             RuleFor(x => x.Name)
                 .MustAsync(async (key, CancellationToken) => !await _studentService.IsNameExist(key))
                 .WithMessage("The Name is already taken.");
+
+            //When(x => x.DepartmentId != 0, () =>
+            //{
+
+            RuleFor(x => x.DepartmentId)
+                    .MustAsync(async (key, CancellationToken) => await _departmentService.IsDepartmentIdExist(key))
+                    .WithMessage(_localizer[SharedResources.SharedResourcesKeys.IsNotExist]);
+            //});
+
+
+
         }
 
 

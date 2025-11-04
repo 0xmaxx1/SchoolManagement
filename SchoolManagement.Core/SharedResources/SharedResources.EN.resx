@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IsNotExist" xml:space="preserve">
+    <value>is not Exist</value>
+  </data>
   <data name="Empty" xml:space="preserve">
     <value>must not be empty</value>
+  </data>
+  <data name="Exist" xml:space="preserve">
+    <value>This field already exists.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -128,5 +134,8 @@
   </data>
   <data name="Required" xml:space="preserve">
     <value>The Field Is Required</value>
+  </data>
+  <data name="DepartmentId" xml:space="preserve">
+    <value>Department Id</value>
   </data>
 </root>

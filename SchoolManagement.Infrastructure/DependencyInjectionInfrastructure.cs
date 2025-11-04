@@ -29,6 +29,18 @@ namespace SchoolManagement.Infrastructure
 
 
 
+
+            #region Identity
+
+
+
+
+            #endregion
+
+
+
+
+
             return services;
 
 
