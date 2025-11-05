@@ -11,6 +11,7 @@ namespace SchoolManagement.Core.Features.User.Commands.Validators
         public AddUserValidator(IStringLocalizer<SharedResources.SharedResources> localizer)
         {
             this._localizer = localizer;
+            ApplyValidationsRules();
         }
 
 
