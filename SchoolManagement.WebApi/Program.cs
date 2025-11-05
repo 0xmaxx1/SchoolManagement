@@ -43,10 +43,10 @@ namespace SchoolManagement.WebApi
             #region Add Services To DI Container
 
             builder.Services.AddControllers()
-                                                                  /*    .AddJsonOptions(opt =>
-                                                                      {
-                                                                          opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-                                                                      })*/;
+                                                                      /*    .AddJsonOptions(opt =>
+                                                                          {
+                                                                              opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                                                                          })*/;
 
             AddTheServiceIdentityToDI(builder);
 
@@ -119,6 +119,7 @@ namespace SchoolManagement.WebApi
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
+                options.SignIn.RequireConfirmedEmail = false;
 
 
             }).AddEntityFrameworkStores<ApplicationDbContext>()
