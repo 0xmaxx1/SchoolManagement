@@ -23,6 +23,12 @@
             public const string List = Prefix + "/List";
             public const string GetById = Prefix + "/Id";
         }
+        public static class ApplicatioUserRouting
+        {
+            public const string Prefix = Rule + "User";
+            public const string Create = Prefix + "/Create";
+            //public const string GetById = Prefix + "/Id";
+        }
 
 
     }

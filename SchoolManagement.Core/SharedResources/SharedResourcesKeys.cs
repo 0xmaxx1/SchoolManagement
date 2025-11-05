@@ -9,6 +9,10 @@
         public const string Exist = "Exist";
         public const string IsNotExist = "IsNotExist";
         public const string DepartmentId = "DepartmentId";
+        public const string PasswordNotEqualConfirmPass = "PasswordNotEqualConfirmPass";
+        public const string EmailIsExist = "EmailIsExist";
+        public const string UserNameIsExist = "UserNameIsExist";
+        public const string FailedToAddUser = "FailedToAddUser";
 
 
 
